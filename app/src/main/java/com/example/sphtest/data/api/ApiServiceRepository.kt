@@ -8,8 +8,7 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class ApiServiceRepository(private val apiService: RetrofitEndpoint) {
-    lateinit var result : Result<DataUsageResponse>
-
+    lateinit var result: Result<DataUsageResponse>
     suspend fun getDataUsageList(pageLimit: Int): Result<DataUsageResponse> {
         withContext(Dispatchers.IO) {
             try {
@@ -18,13 +17,12 @@ class ApiServiceRepository(private val apiService: RetrofitEndpoint) {
                 request?.let {
                     if (it.isCompleted) result = Result.success(response)
                     else if (it.isCancelled) result =
-                            Result.error(NetworkError.API_ERROR)
+                        Result.error(NetworkError.API_ERROR)
                 }
             } catch (ex: Exception) {
                 result = Result.error(NetworkError.API_ERROR)
             }
         }
-
         return result
     }
 

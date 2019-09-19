@@ -5,3 +5,7 @@ data class Records (
 		@SerializedName("quarter") val quarter : String,
 		@SerializedName("_id") val _id : Int
 )
+
+fun Records.year() = quarter.split("-").first()
+
+fun Records.quarterName() = quarter.split("-")[1]

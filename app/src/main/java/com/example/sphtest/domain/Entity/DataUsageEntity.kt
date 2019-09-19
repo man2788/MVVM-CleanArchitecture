@@ -1,11 +1,7 @@
 package com.example.sphtest.domain.Entity
 
-class DataUsageEntity(var year: Int,
-                      var quarter : List<Double>,
-                      var totalAmountOfDataUsagePerYear : Double,
-                      var isDecreasingFromPreviousQuarter : Boolean,
-                      var isFlipped:Boolean?=false)
 
+data class Quarter(val qName: String, val qValue: Double, val id: Int)
 
-
+data class Year(val quarterList: List<Quarter>, val yName: String,var isFlipped : Boolean = false)
 

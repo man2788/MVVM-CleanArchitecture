@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.widget.Toast
+import com.example.sphtest.domain.Entity.Year
 
 
 fun Context.hasNetwork(): Boolean {
@@ -15,7 +16,20 @@ fun Context.hasNetwork(): Boolean {
     return isConnected
 }
 
-fun Context.showTaost(message : String) {
+fun Context.showTaost(message: String) {
     val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
     toast.show()
+}
+
+fun Year.totalValue() = quarterList.sumByDouble { it.qValue }
+
+fun Year.isDecreased(): Boolean {
+    var lastValue = Double.MIN_VALUE
+    quarterList.forEach {
+        if (it.qValue < lastValue) {
+            return true
+        }
+        lastValue = it.qValue
+    }
+    return false
 }
