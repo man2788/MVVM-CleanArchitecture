@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    card_view:cardBackgroundColor="@color/colorLight"
+    android:padding="10dp"
+    card_view:cardCornerRadius="5dp"
+    app:ignore="NamespaceTypo">
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        app:contextClickable="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="25dp" />
+</androidx.cardview.widget.CardView>
