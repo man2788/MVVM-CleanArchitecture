@@ -8,6 +8,7 @@ import com.example.sphtest.data.api.ApiServiceRepository
 import com.example.sphtest.data.result.Result
 import com.example.sphtest.data.result.ResultTypes
 import com.example.sphtest.domain.usecase.DataUsageListUseCase
+import com.example.sphtest.extensions.isDecreased
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
@@ -62,6 +63,30 @@ class DataUsageListUseCaseTest {
             val expectedResult = listOf("2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004")
             Assert.assertEquals(expectedResult,realResult)
         }
+    }
+
+    @Test
+    fun verifyTheQuarterFluctuationFromYear(){
+        runBlocking {
+            //Positive Case - where the fluctuation happens for the year 2015
+            val quarters = getDataListUseCase.prepareData(Result.success(data)).filter {
+                it.yName == "2015"
+            }
+            quarters.map {
+                it.isDecreased()
+                Assert.assertEquals(true,it.isDecreased())
+            }
+
+            //Negative Case - where the fluctuation not happens
+            val quarters2 = getDataListUseCase.prepareData(Result.success(data)).filter {
+                it.yName == "2019"
+            }
+            quarters2.map {
+                it.isDecreased()
+                Assert.assertEquals(false,it.isDecreased())
+            }
+        }
+
     }
 
 }
