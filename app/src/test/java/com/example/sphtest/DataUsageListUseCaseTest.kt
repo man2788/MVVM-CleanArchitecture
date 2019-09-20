@@ -17,17 +17,17 @@ import org.junit.Assert
 import org.junit.Test
 
 
-
 class DataUsageListUseCaseTest {
     private val apiServiceRepository: ApiServiceRepository = mock()
     private val getDataListUseCase = DataUsageListUseCase(apiServiceRepository)
+    val data = MockData.loadResponse()
 
     @Test
     fun verifyUseCaseCallRepository() {
         runBlocking {
             given(apiServiceRepository.getDataUsageList(Constants.PAGE_LIMIT))
-                .willReturn(Result.success(MockData.loadResponse()))
-            getDataListUseCase.getDataUsageList(Constants.PAGE_LIMIT,{},{})
+                .willReturn(Result.success(data))
+            getDataListUseCase.getDataUsageList(Constants.PAGE_LIMIT, {}, {})
             verify(apiServiceRepository, times(1)).getDataUsageList(Constants.PAGE_LIMIT)
         }
     }
@@ -35,7 +35,7 @@ class DataUsageListUseCaseTest {
     @Test
     fun verifyResultWhenRepoMockReturnSuccessState() {
         runBlocking {
-            val result = Result.success(MockData.loadResponse())
+            val result = Result.success(data)
             given(apiServiceRepository.getDataUsageList(Constants.PAGE_LIMIT)).willReturn(result)
             val expectedResult = ResultTypes.SUCCESS
             val realResult = result.resultType
@@ -51,6 +51,16 @@ class DataUsageListUseCaseTest {
             val realResult = Result.error<T>(NetworkError.API_ERROR).error
             val expectedResult = NetworkError.API_ERROR
             Assert.assertEquals(expectedResult, realResult)
+        }
+    }
+
+    @Test
+    fun verifyTheYearIsSortedFromResponse() {
+        runBlocking {
+            val realResult = getDataListUseCase.prepareData(Result.success(data)).map {
+                it.yName }
+            val expectedResult = listOf("2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004")
+            Assert.assertEquals(expectedResult,realResult)
         }
     }
 
