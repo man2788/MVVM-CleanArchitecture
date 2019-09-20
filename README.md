@@ -1,4 +1,4 @@
-Application displays the mobile data usage by the year with the sum of four quarters and having the fucnionality to view the fluctuation of the data usage if any occurs and vary in between the quarters.
+Application displays the mobile data usage by the year(2004 - present) with the sum of four quarters and having the fucnionality to view the fluctuation of the data usage if any occurs and vary in between the quarters.
 The following patterns and libraries are used.
 Kotlin,
 MVVM clean architecture,
