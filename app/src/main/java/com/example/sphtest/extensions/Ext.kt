@@ -1,14 +1,12 @@
 package com.example.sphtest.extensions
 
 import android.content.Context
-import android.content.res.AssetManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.text.TextUtils
 import android.widget.Toast
 import com.example.sphtest.domain.pojo.Year
-import java.io.IOException
-import java.nio.charset.Charset
+import com.google.gson.Gson
+
 
 
 fun Context.hasNetwork(): Boolean {
@@ -37,5 +35,7 @@ fun Year.isDecreased(): Boolean {
     }
     return false
 }
+
+fun <T> String.toGson(clazz: Class<T>): T = Gson().fromJson(this, clazz)
 
 
