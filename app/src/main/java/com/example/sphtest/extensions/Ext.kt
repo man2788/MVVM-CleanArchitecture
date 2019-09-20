@@ -1,10 +1,14 @@
 package com.example.sphtest.extensions
 
 import android.content.Context
+import android.content.res.AssetManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.text.TextUtils
 import android.widget.Toast
-import com.example.sphtest.domain.Entity.Year
+import com.example.sphtest.domain.pojo.Year
+import java.io.IOException
+import java.nio.charset.Charset
 
 
 fun Context.hasNetwork(): Boolean {
@@ -16,8 +20,8 @@ fun Context.hasNetwork(): Boolean {
     return isConnected
 }
 
-fun Context.showTaost(message: String) {
-    val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+fun Context.showTost(message: String) {
+    val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
     toast.show()
 }
 
@@ -33,3 +37,5 @@ fun Year.isDecreased(): Boolean {
     }
     return false
 }
+
+

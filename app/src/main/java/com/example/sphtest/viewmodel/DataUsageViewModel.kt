@@ -3,8 +3,9 @@ package com.example.sphtest.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sphtest.constants.Constants
 import com.example.sphtest.domain.usecase.DataUsageListUseCase
-import com.example.sphtest.domain.Entity.Year
+import com.example.sphtest.domain.pojo.Year
 import kotlinx.coroutines.launch
 
 class DataUsageViewModel(private val dataUsageListUseCase: DataUsageListUseCase) : ViewModel() {
@@ -18,7 +19,7 @@ class DataUsageViewModel(private val dataUsageListUseCase: DataUsageListUseCase)
     private fun initAPIService() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
-            dataUsageListUseCase.getDataUsageList(59, {
+            dataUsageListUseCase.getDataUsageList(Constants.PAGE_LIMIT, {
                 dataUsageListLiveData.postValue(it)
                 isLoadingLiveData.postValue(false)
             }, {

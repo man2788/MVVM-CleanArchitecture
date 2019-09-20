@@ -9,12 +9,12 @@ import com.example.sphtest.R
 import com.example.sphtest.adapter.DataUsageListAdapter
 import com.example.sphtest.adapter.GridItemDecoration
 import com.example.sphtest.extensions.hasNetwork
-import com.example.sphtest.extensions.showTaost
+import com.example.sphtest.extensions.showTost
 import com.example.sphtest.viewmodel.DataUsageViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class DataUsageListActivity : AppCompatActivity() {
 
     private val dataUsageViewModel: DataUsageViewModel by viewModel()
     private var isLoading: Boolean= false
@@ -22,8 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if(!this.hasNetwork()){
-            this.showTaost(getString(R.string.internet_connection))
-            return
+            this.showTost(getString(R.string.internet_connection))
         }
         dataUsageViewModel.isLoadingLiveData.observe(this, Observer {
             isLoading = it

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sphtest.R
-import com.example.sphtest.domain.Entity.Year
+import com.example.sphtest.domain.pojo.Year
 import com.example.sphtest.extensions.isDecreased
 import com.example.sphtest.extensions.totalValue
 import kotlinx.android.synthetic.main.item_flip_back.view.*
