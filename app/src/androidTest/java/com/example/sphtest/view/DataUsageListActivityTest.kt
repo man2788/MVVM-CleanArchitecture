@@ -13,6 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import android.widget.TextView
+import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import androidx.test.espresso.matcher.BoundedMatcher
 import com.example.sphtest.adapter.DataUsageListAdapter
 import org.hamcrest.Description
@@ -20,7 +21,7 @@ import org.hamcrest.Matcher
 
 
 @RunWith(AndroidJUnit4::class)
-class DataUsageListActivityTest{
+class DataUsageListActivityTest {
 
     @get:Rule
     val activityRule = ActivityTestRule(DataUsageListActivity::class.java, false, false)
@@ -33,13 +34,19 @@ class DataUsageListActivityTest{
     @Test
     fun onItemClick() {
         ActivityScenario.launch(DataUsageListActivity::class.java)
-        onView(withId(com.example.sphtest.R.id.recyclerView_dataList)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(6, click()))
+        onView(withId(com.example.sphtest.R.id.recyclerView_dataList)).perform(
+            actionOnItemAtPosition<RecyclerView.ViewHolder>(6, click())
+        )
     }
 
     @Test
     fun testRecyclerViewScroll() {
         ActivityScenario.launch(DataUsageListActivity::class.java)
-        onView(withId(com.example.sphtest.R.id.recyclerView_dataList)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(8))
+        onView(withId(com.example.sphtest.R.id.recyclerView_dataList)).perform(
+            scrollToPosition<RecyclerView.ViewHolder>(
+                8
+            )
+        )
     }
 
     @Test
@@ -49,15 +56,18 @@ class DataUsageListActivityTest{
             RecyclerViewActions.scrollToHolder(
                 withHolderTimeView("Year")
             )
-        );
+        )
     }
 
     private fun withHolderTimeView(text: String): Matcher<RecyclerView.ViewHolder> {
         return object :
-            BoundedMatcher<RecyclerView.ViewHolder, DataUsageListAdapter.ViewHolder>(DataUsageListAdapter.ViewHolder::class.java!!) {
+            BoundedMatcher<RecyclerView.ViewHolder, DataUsageListAdapter.ViewHolder>(
+                DataUsageListAdapter.ViewHolder::class.java!!
+            ) {
             override fun describeTo(description: Description) {
                 description.appendText("No ViewHolder found with text: $text")
             }
+
             override fun matchesSafely(item: DataUsageListAdapter.ViewHolder): Boolean {
                 val timeViewText =
                     item.itemView.findViewById(com.example.sphtest.R.id.textView_year_label) as TextView

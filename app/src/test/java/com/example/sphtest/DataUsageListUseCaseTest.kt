@@ -21,7 +21,7 @@ import org.junit.Test
 class DataUsageListUseCaseTest {
     private val apiServiceRepository: ApiServiceRepository = mock()
     private val getDataListUseCase = DataUsageListUseCase(apiServiceRepository)
-    val data = MockData.loadResponse()
+    private val data = MockData.loadResponse()
 
     @Test
     fun verifyUseCaseCallRepository() {
