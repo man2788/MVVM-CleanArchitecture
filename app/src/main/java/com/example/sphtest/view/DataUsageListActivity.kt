@@ -17,22 +17,30 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class DataUsageListActivity : AppCompatActivity() {
 
     private val dataUsageViewModel: DataUsageViewModel by viewModel()
-    private var isLoading: Boolean= false
+    private var isLoading: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if(!this.hasNetwork()){
+        checkNetworkExists()
+        initProgressbar()
+        prepareRecyclerView()
+    }
+
+    private fun checkNetworkExists() {
+        if (!this.hasNetwork()) {
             this.showTost(getString(R.string.internet_connection))
         }
+    }
+
+    private fun initProgressbar() {
         dataUsageViewModel.isLoadingLiveData.observe(this, Observer {
             isLoading = it
-            if(isLoading){
+            if (isLoading) {
                 progressBar.visibility = View.VISIBLE
-            }else{
+            } else {
                 progressBar.visibility = View.GONE
             }
         })
-        prepareRecyclerView()
     }
 
     private fun prepareRecyclerView() {
@@ -42,7 +50,7 @@ class DataUsageListActivity : AppCompatActivity() {
         recyclerView_dataList.adapter = dataUsageAdapter
         recyclerView_dataList.setHasFixedSize(true)
         dataUsageViewModel.dataUsageListLiveData.observe(this, Observer {
-            if(!it.isNullOrEmpty())
+            if (!it.isNullOrEmpty())
                 dataUsageAdapter.updateAdapter(it)
         })
     }
